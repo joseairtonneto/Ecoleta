@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+    
+    {% block title %}
+    <title>Resultado da pesquisa</title>
+    {% endblock %}
+    
+    {% block styles %}
+    <link rel="stylesheet" href="/styles/search-results.css">
+    {% endblock %}
+
+    {% set pageId = "page-search-results" %}
+
+        {% block content %}{% include "partials/page-header.html" %}
+        <main>
+
+            <h4>
+                <strong>
+                    {% if total == 0 %}Nenhum local</strong> encontrado{% endif %} 
+                    {% if total == 1 %}{{ total }} ponto</strong> encontrado{% endif %} 
+                    {% if total > 1 %}{{ total }} pontos</strong> encontrados{% endif %}
+            </h4>
+
+            <div class="cards">
+                {% for place in places %}
+                <div class="card">
+                    <img src="{{ place.image }}" alt="Colectoria">
+                    <h1>{{ place.name }}</h1>
+                    <h3>{{ place.items }}</h3>
+                    <p>
+                        {{ place.city }}, {{ place.state }} <br>
+                        {{ place.address }} <br>
+                        {{ place.address2 }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        {% endblock %}
