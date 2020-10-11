@@ -54,7 +54,7 @@ let selectedItems = []
 
 function handleSelectedItem(event) {
     const itemLi = event.target
-    
+
     //add or remove class with js
     itemLi.classList.toggle("selected")
     //get items id
