@@ -9,6 +9,7 @@
     }
 
     #page-home header a{
+        position: absolute;
         margin: 30vh 0 5vh;
 
         left: 50%;
