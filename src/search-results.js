@@ -13,14 +13,17 @@ function renderCards() {
       quantityFound(0);
     }
   } else {
-    let searchedCollectionPoints =  collectionPoints.map(point => {
-      if(point.place.city === searchedCity)
+    let searchedCollectionPoints =  collectionPoints
+    .map(point => {
+      if(new RegExp(searchedCity, 'i').test(point.place.city))
+        return point;
+    })
+    .filter(point => {
+      if(point !== undefined)
         return point;
     });
-
-    if(searchedCollectionPoints[0] !== undefined) {
+    if(collectionPoints !== null) {
       quantityFound(searchedCollectionPoints);
-
       renderCard(searchedCollectionPoints);
     } else {
       quantityFound(0);

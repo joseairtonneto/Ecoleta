@@ -12,7 +12,7 @@ function populateUFs ()
       .then(res => res.json())
         .then(states => {
           for(let state of states)
-            ufSelect.innerHTML += `<option value="${state.id}" id="${state.nome}">${state.nome}</option>`;
+            ufSelect.innerHTML += `<option value="${state.id}">${state.nome}</option>`;
         });
 }
 
@@ -94,9 +94,12 @@ function creatingCollectPoint(event) {
   let nome = document.querySelector('#create-point .fieldgroup .field input[name=name]').value;
   let image = document.querySelector('#create-point .fieldgroup .field input[name=image]').value;
   let items = selectedItems;
-  let state = document.querySelector("select[name=uf]").id;
-
-  console.log(state);
+  let ufSelected = document.querySelector("select[name=uf]").value;
+  let ufs = state.children;
+  let state;
+   for(uf of ufs)
+    if(uf.value === ufSelect)
+      state = children.label;
   let city = document.querySelector("[name=city]").value;
   let address = document.querySelector('#create-point .fieldgroup .field input[name=address]').value;
   let address2 = document.querySelector('#create-point .fieldgroup .field input[name=address2]').value;
@@ -125,6 +128,6 @@ function ativeModal() {
   modal.classList.remove('hide');
   window.scrollTo(top);
   setTimeout(() => {
-    window.location = "/"
+    window.location = "../../index.html"
   }, 2000);
 }
