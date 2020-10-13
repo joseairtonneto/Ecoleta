@@ -15,7 +15,7 @@ close.addEventListener("click", () => modal.classList.add('hide'));
 function saveToStorage() {
   searchedCity = document.querySelector('#modal .search-field input').value;
 
-  formElement.setAttribute('action', '/public/views/search-results.html');
+  formElement.setAttribute('action', '/ecoleta/public/views/search-results.html');
 
   localStorage.setItem('searched_city', JSON.stringify(searchedCity));
 }
