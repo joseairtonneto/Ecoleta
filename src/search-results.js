@@ -67,7 +67,7 @@ function renderCard(searchedCollectionPoints) {
 
 function quantityFound(searchedCollectionPoints) {
   let quantityFound = document.createElement('strong');
-  if(searchedCollectionPoints.length === 0 || searchedCollectionPoints === null) {
+  if(searchedCollectionPoints.length === 0 || searchedCollectionPoints === 0) {
     let quantityFoundText = document.createTextNode('Nenhum local cadastrado');
     quantityFound.appendChild(quantityFoundText)
 
