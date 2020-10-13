@@ -15,7 +15,7 @@ function renderCards() {
   } else {
     let searchedCollectionPoints =  collectionPoints
     .map(point => {
-      if(new RegExp(searchedCity, 'i').test(point.place.city))
+      if(new RegExp(searchedCity, 'i').test(point.place.city) || point.place.city === searchedCity)
         return point;
     })
     .filter(point => {
