@@ -6,9 +6,12 @@ const cardsElement = document.querySelector('.cards');
 
 function renderCards() {
   if(searchedCity === '') {
-    quantityFound(collectionPoints);
-    if(collectionPoints !== null)
+    if(collectionPoints !== null) {
+      quantityFound(collectionPoints);
       renderCard(collectionPoints);
+    } else {
+      quantityFound(0);
+    }
   } else {
     let searchedCollectionPoints =  collectionPoints.map(point => {
       if(point.place.city === searchedCity)
