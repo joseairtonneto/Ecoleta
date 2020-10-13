@@ -1,75 +1,130 @@
+let collectionPoints = JSON.parse(localStorage.getItem('list_of_collection_points')) || [];
+//to reset collectionPoints
+/*collectionPoints = [];
+saveToStorage();*/
+
+const modal = document.querySelector('#modal');
+
 function populateUFs ()
 {
-    const ufSelect = document.querySelector("select[name=uf]")
+    const ufSelect = document.querySelector("select[name=uf]");
     fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-        .then(res => res.json())
-            .then(states => {
-                for(let state of states)
-                    ufSelect.innerHTML += `<option value="${state.id}">${state.nome}</option>`
-            })
+      .then(res => res.json())
+        .then(states => {
+          for(let state of states)
+            ufSelect.innerHTML += `<option value="${state.id}" id="${state.nome}">${state.nome}</option>`;
+        });
 }
 
 populateUFs()
 
 
 function getCities(event) {
-    const citySelect = document.querySelector("[name=city]")
-    const stateInput = document.querySelector("[name=state]")
+    const citySelect = document.querySelector("[name=city]");
+    const stateInput = document.querySelector("[name=state]");
 
-    const ufValue = event.target.value
+    const ufValue = event.target.value;
 
-    const indexOfSelectedState = event.target.selectedIndex
-    stateInput.value = event.target.options[indexOfSelectedState].text
+    const indexOfSelectedState = event.target.selectedIndex;
+    stateInput.value = event.target.options[indexOfSelectedState].text;
 
-    const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`
+    const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`;
 
-    citySelect.innerHTML = "<option value>Selecione a Cidade</option>"
-    citySelect.disabled = true
+    citySelect.innerHTML = "<option value>Selecione a Cidade</option>";
+    citySelect.disabled = true;
 
     fetch(url)
         .then(res => res.json())
             .then(cities => {
                 for(const city of cities)
-                    citySelect.innerHTML += `<option value="${city.nome}">${city.nome}</option>`
+                    citySelect.innerHTML += `<option value="${city.nome}">${city.nome}</option>`;
 
-                citySelect.disabled = false
-            })
+                citySelect.disabled = false;
+            });
 }
 
 document
     .querySelector("select[name=uf]")
-    .addEventListener("change", getCities)
+    .addEventListener("change", getCities);
 
 //itens de coleta
 
-const itemsToCollect = document.querySelectorAll(".items-grid li")
+const itemsToCollect = document.querySelectorAll(".items-grid li");
 
 for(const item of itemsToCollect) {
-    item.addEventListener("click", handleSelectedItem)
+    item.addEventListener("click", handleSelectedItem);
 }
 
-const collectedItems = document.querySelector("input[name=items]")
+const collectedItems = document.querySelector("input[name=items]");
 
-let selectedItems = []
+let selectedItems = [];
 
 function handleSelectedItem(event) {
-    const itemLi = event.target
+    const itemLi = event.target;
 
     //add or remove class with js
-    itemLi.classList.toggle("selected")
+    itemLi.classList.toggle("selected");
     //get items id
-    const itemId = itemLi.dataset.id
+    const itemId = itemLi.dataset.id;
 
     //get items selected
-    const alreadySelected = selectedItems.findIndex(item => item == itemId)
+    const alreadySelected = selectedItems.findIndex(item => item == itemId);
 
     //add or remove items into array
     if( alreadySelected >= 0 ) {
-        const filteredItems = selectedItems.filter( item => item != itemId)
-        selectedItems = filteredItems
+        const filteredItems = selectedItems.filter( item => item != itemId);
+        selectedItems = filteredItems;
     } else {
-        selectedItems.push(itemId)
+        selectedItems.push(itemId);
     }
     //att the hidden camp with selected items
-    collectedItems.value = selectedItems
+    collectedItems.value = selectedItems;
+}
+
+const formElement = document.querySelector('#create-point');
+
+function handleRegisterCollectPoint() {
+  formElement.setAttribute('onsubmit', 'creatingCollectPoint(event)');
+}
+
+handleRegisterCollectPoint();
+
+function creatingCollectPoint(event) {
+  event.preventDefault();
+  let nome = document.querySelector('#create-point .fieldgroup .field input[name=name]').value;
+  let image = document.querySelector('#create-point .fieldgroup .field input[name=image]').value;
+  let items = selectedItems;
+  let state = document.querySelector("select[name=uf]").id;
+
+  console.log(state);
+  let city = document.querySelector("[name=city]").value;
+  let address = document.querySelector('#create-point .fieldgroup .field input[name=address]').value;
+  let address2 = document.querySelector('#create-point .fieldgroup .field input[name=address2]').value;
+
+  collectionPoints.push({
+    nome,
+    image,
+    items,
+    place:  {
+      city,
+      state,
+      address,
+      address2,
+    }
+  })
+
+  saveToStorage();
+  ativeModal();
+}
+
+function saveToStorage() {
+  localStorage.setItem('list_of_collection_points', JSON.stringify(collectionPoints));
+}
+
+function ativeModal() {
+  modal.classList.remove('hide');
+  window.scrollTo(top);
+  setTimeout(() => {
+    window.location = "/"
+  }, 2000);
 }
