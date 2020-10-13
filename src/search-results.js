@@ -7,15 +7,15 @@ const cardsElement = document.querySelector('.cards');
 function renderCards() {
   if(searchedCity === '') {
     if(collectionPoints !== null) {
-        quantityFound(collectionPoints);
-        renderCard(collectionPoints);
+      quantityFound(collectionPoints);
+      renderCard(collectionPoints);
     } else {
       quantityFound(0);
     }
   } else {
     let searchedCollectionPoints =  collectionPoints.map(point => {
       if(point.place.city === searchedCity)
-        return point ;
+        return point;
     });
 
     if(searchedCollectionPoints[0] !== undefined) {
@@ -67,7 +67,7 @@ function renderCard(searchedCollectionPoints) {
 
 function quantityFound(searchedCollectionPoints) {
   let quantityFound = document.createElement('strong');
-  if(searchedCollectionPoints.length === 0) {
+  if(searchedCollectionPoints.length === 0 || searchedCollectionPoints === null) {
     let quantityFoundText = document.createTextNode('Nenhum local cadastrado');
     quantityFound.appendChild(quantityFoundText)
 
