@@ -5,9 +5,10 @@ const h4Element = document.querySelector('main h4');
 const cardsElement = document.querySelector('.cards');
 
 function renderCards() {
-  if(collectionPoints !== null) {
-      quantityFound(collectionPoints);
-      renderCard(collectionPoints);
+  if(searchedCity === '') {
+    if(collectionPoints !== null) {
+        quantityFound(collectionPoints);
+        renderCard(collectionPoints);
     } else {
       quantityFound(0);
     }
@@ -16,9 +17,8 @@ function renderCards() {
       if(point.place.city === searchedCity)
         return point ;
     });
-    console.log(searchedCollectionPoints);
 
-    if(searchedCollectionPoints[0] !== undefined){
+    if(searchedCollectionPoints[0] !== undefined) {
       quantityFound(searchedCollectionPoints);
 
       renderCard(searchedCollectionPoints);
