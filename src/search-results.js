@@ -5,8 +5,7 @@ const h4Element = document.querySelector('main h4');
 const cardsElement = document.querySelector('.cards');
 
 function renderCards() {
-  if(searchedCity === '') {
-    if(collectionPoints !== null) {
+  if(collectionPoints !== null) {
       quantityFound(collectionPoints);
       renderCard(collectionPoints);
     } else {
@@ -101,4 +100,3 @@ function quantityFound(searchedCollectionPoints) {
 }
 
 renderCards();
-
