@@ -10,8 +10,8 @@
 
     #page-home header a{
         position: absolute;
-        margin: 86vh 0 5vh;
-        
+        margin: 30vh 0 5vh;
+
         left: 50%;
         transform: translateX(-50%);
     }
@@ -77,7 +77,7 @@
     #page-create-point {
         width: 95%;
         max-width: 375px;
-    
+
         margin: 0 auto;
     }
 
