@@ -94,12 +94,12 @@ function creatingCollectPoint(event) {
   let nome = document.querySelector('#create-point .fieldgroup .field input[name=name]').value;
   let image = document.querySelector('#create-point .fieldgroup .field input[name=image]').value;
   let items = selectedItems;
-  let ufSelected = document.querySelector("select[name=uf]").value;
-  let ufs = state.children;
+  let ufSelected = document.querySelector("select[name=uf]");
+  let ufs = ufSelected.children;
   let state;
-   for(uf of ufs)
-    if(uf.value === ufSelect)
-      state = children.label;
+  for(uf of ufs)
+    if(uf.value === ufSelected.value)
+      state = uf.label;
   let city = document.querySelector("[name=city]").value;
   let address = document.querySelector('#create-point .fieldgroup .field input[name=address]').value;
   let address2 = document.querySelector('#create-point .fieldgroup .field input[name=address2]').value;
